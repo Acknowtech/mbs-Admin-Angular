@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="custom-card">
+      <div class="custom-card-body">
+        <h5 class="custom-card-title">TRASH LANGUAGES
+          <!-- Button trigger modal -->
+<!--          <button type="button" class="btn btn-sm btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i></button>-->
+        </h5>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-dark" *ngIf="trashLanguages.length == 0">No Trash-languages available</div>
+
+
+<div class="row" *ngIf="trashLanguages.length > 0">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="active-member">
+          <div class="table-responsive">
+            <table class="table table-xs mb-0">
+              <thead>
+              <tr>
+                <th>Language Icon</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let language of trashLanguages | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+                <td><img src="{{language.imageLink}}" class=" rounded-circle mr-3" alt=""></td>
+                <td>{{language.name}}</td>
+                <td>
+                  <button type="button" class="btn btn-xs btn-secondary" title="Re-store" (click)="restoreLanguage(language)"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                  <span class="midle"></span>
+                  <button type="button" class="btn btn-xs btn-danger" title="Permanently Delete" (click)="deletePermanently(language)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls *ngIf="trashLanguages.length > 0" (pageChange)="pageChange($event)"></pagination-controls>

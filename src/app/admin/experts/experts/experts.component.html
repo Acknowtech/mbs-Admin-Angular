@@ -1,0 +1,203 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="custom-card">
+      <div class="custom-card-body">
+        <h5 class="custom-card-title">EXPERTS
+          <!-- Button trigger modal -->
+<!--          <button type="button" class="btn btn-sm btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i></button>-->
+        </h5>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <ng-select2 [data]="exampleData" [options]="options" [(ngModel)]="value1"></ng-select2>
+  </div>
+</div>
+
+<div class="cbm10"></div>
+<div class="alert alert-dark" *ngIf="expertsData.length == 0">No experts available</div>
+
+<div class="row" *ngIf="expertsData.length > 0">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="active-member">
+          <div class="table-responsive">
+            <table class="table table-xs mb-0">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Marital Status</th>
+                <th>City</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let expert of expertsData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+
+                <td>{{expert.name}}</td>
+                <td>{{expert.email}}</td>
+                <td>{{expert.mobile_number}}</td>
+                <td>{{expert.marital_status}}</td>
+                <td>{{expert.city}}</td>
+                <td>
+                  <button type="button" class="btn btn-xs btn-secondary" title="Action" (click)="openModal(template);expertAction(expert)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                  <span class="midle"></span>
+                  <button type="button" class="btn btn-xs btn-primary" title="More Details" (click)="lgModal.show();expertDetails(expert)"><i class="fa fa-info" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls *ngIf="expertsData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Expert Action</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <h4>Take action on expert...</h4>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="expertAllowRejectAction('allow')">Allow</button>
+    <button type="button" class="btn btn-warning" (click)="expertAllowRejectAction('reject')">Reject</button>
+  </div>
+</ng-template>
+
+
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg" *ngIf="expertDetailsData != null">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Experts Details</h4>
+        <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="basic-form">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Name</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.name" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Email</label>
+                  <input type="email" class="form-control" [value]="expertDetailsData.email" disabled>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Mobile Number</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.mobile_number" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Marital Status</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.marital_status" disabled>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>Education</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.education" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>City</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.city" disabled>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Experience</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.experience" disabled>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label>Short Bio</label>
+                  <textarea class="form-control" [value]="expertDetailsData.short_bio" disabled></textarea>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Available for video</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.available_for_video" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Available for chat</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.available_for_chat" disabled>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label>Email Verified At</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.email_verified_at" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>V Charge</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.v_charge" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>A Charge</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.a_charge" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>T Charge</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.t_charge" disabled>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label>is verified</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.is_verified" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>Registration Payment</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.is_registration_payment_done" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>Rating</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.rating" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>Wallet</label>
+                  <input type="text" class="form-control" [value]="expertDetailsData.wallet" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="lgModal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

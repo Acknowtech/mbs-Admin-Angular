@@ -1,0 +1,41 @@
+.custom-card{
+  margin-bottom: 30px;
+  border: 0px;
+  border-radius: 0.625rem;
+  box-shadow: 6px 11px 41px -28px #a99de7;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  /*border: 1px solid rgba(0, 0, 0, 0.125);*/
+  border-radius: 0.25rem;
+}
+
+.custom-card-body{
+  flex: 1 1 auto;
+}
+.custom-card .custom-card-body{
+  padding: 0.88rem 0.81rem;
+}
+.custom-card-title{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 18px;
+  margin-bottom: 0px;
+}
+.midle{
+  margin: 0px 9px 0px 0px;
+}
+
+.no-pad{
+  padding: 0px !important;
+}
+
+.cbm10{
+  clear: both;
+  margin: 10px;
+
+}

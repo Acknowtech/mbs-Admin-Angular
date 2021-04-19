@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="custom-card">
+      <div class="custom-card-body">
+        <h5 class="custom-card-title">TRASH CATEGORY
+          <!-- Button trigger modal -->
+          <!--          <button type="button" class="btn btn-sm btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i></button>-->
+        </h5>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-dark" *ngIf="trashCategories.length == 0">No Trash-Categories available</div>
+
+
+<div class="row" *ngIf="trashCategories.length > 0">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="active-member">
+          <div class="table-responsive">
+            <table class="table table-xs mb-0">
+              <thead>
+              <tr>
+                <th>Category Icon</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let trashCategory of trashCategories | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+                <td><img src="{{trashCategory.imageLink}}" class=" rounded-circle mr-3" alt=""></td>
+                <td>{{trashCategory.name}}</td>
+                <td>
+                  <button type="button" class="btn btn-xs btn-secondary" title="Re-store" (click)="restoreCategory(trashCategory)"><i class="fa fa-undo" aria-hidden="true"></i></button>
+                  <span class="midle"></span>
+                  <button type="button" class="btn btn-xs btn-danger" title="Permanently Delete" (click)="deletePermanently(trashCategory)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls *ngIf="trashCategories.length > 0" (pageChange)="pageChange($event)"></pagination-controls>

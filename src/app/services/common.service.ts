@@ -15,7 +15,7 @@ export class CommonService {
   ) { }
 
   apiCall( type: string, url: string, body= {}, header = {} ) {
-    url = url;
+    url = 'https://mbs.neuromonk.com' + url;
     switch (type.toLowerCase()){
       case 'get': {
         return this.http.get(url, body);
@@ -72,6 +72,28 @@ export class CommonService {
           });
         break;
     }
+  }
+  getURL(): string {
+    return  this.router.url;
+  }
 
+  fileUploadValidation(event): boolean {
+    const allowedExtensions = ["jpg","jpeg","png","svg","JPG","JPEG","SVG"];
+    var fileExtension = null;
+    var validOrNot = null;
+    var fileData = event.target.files[0];
+
+    if (fileData.size > 2000000){
+      this.flashMessage('warning', 'Warning', 'file must be less than 2 mb');
+      return false;
+    }
+
+    fileExtension = event.target.files[0].name.split('.').pop();
+    validOrNot = allowedExtensions.indexOf(fileExtension.toLowerCase()) > -1;
+    if (!validOrNot){
+      this.flashMessage('warning', 'Warning', 'file must be jpeg,png,jpg,gif,svg');
+      return false;
+    }
+    return true;
   }
 }

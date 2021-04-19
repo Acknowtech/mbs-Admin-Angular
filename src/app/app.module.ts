@@ -22,7 +22,7 @@ import { Ng2IziToastModule } from 'ng2-izitoast';
     SharedModule,
     AdminModule,
     AuthModule,
-    Ng2IziToastModule
+    Ng2IziToastModule,
   ],
   providers: [
     {

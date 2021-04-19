@@ -19,23 +19,17 @@ export class LoginComponent implements OnInit {
   }
   userLogIn(): void {
     const sendOBJ = this.userLogin.value;
-    this.commonService.apiCall('post', 'http://localhost:8000/auth/login', sendOBJ).subscribe((data) => {
+    this.commonService.apiCall('post', '/api/auth/adminLogin', sendOBJ).subscribe((data) => {
       console.log('Data--------', data);
-      localStorage.setItem('token', data['access_token']);
-      this.commonService.flashMessage('success', 'Success', 'Success in MBS Connect...');
-      this.demo();
+        if (data['success'] == true){
+          localStorage.setItem('token', data['data']['token']);
+          localStorage.setItem('userData', JSON.stringify(data['data']['userData']));
+          this.commonService.flashMessage('success', 'Success', data['message']);
+          this.commonService.navigateTo('admin');
+        }
       }, error => {
-      console.log('Error in login');
-      this.commonService.flashMessage('error', 'Error', 'Error in MBS Connect...');
+        console.log('Error in login');
+        this.commonService.flashMessage('error', 'Error', error.message);
     });
   }
-  demo(): void {
-  this.commonService.apiCall('get', 'http://localhost:8000/products').subscribe((data) => {
-  console.log('Data--------', data);
-  this.commonService.flashMessage('success', 'Success', 'Success in MBS Connect...');
-}, error => {
-  console.log('Error in login');
-  this.commonService.flashMessage('error', 'Error', 'Error in MBS Connect...');
-});
-}
 }

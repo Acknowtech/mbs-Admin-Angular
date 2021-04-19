@@ -1,0 +1,149 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="custom-card">
+      <div class="custom-card-body">
+        <h5 class="custom-card-title">CATEGORY
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-sm btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </h5>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-dark" *ngIf="categoryData.length == 0">No category(s) available</div>
+
+<div class="row" *ngIf="categoryData.length > 0">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="active-member">
+          <div class="table-responsive">
+            <table class="table table-xs mb-0">
+              <thead>
+              <tr>
+                <th>Category Icon</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let category of categoryData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+                <td><img src="{{category.imageLink}}" class=" rounded-circle mr-3" alt=""></td>
+                <td>{{category.name}}</td>
+                <td>
+                  <button type="button" class="btn btn-xs btn-secondary" title="Edit" (click)="openModal(template2);editCategory(category)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                  <span class="midle"></span>
+                  <button type="button" class="btn btn-xs btn-danger" title="Delete" (click)="deleteCategory(category)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls *ngIf="categoryData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Category</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="basic-form">
+          <form [formGroup]="addCategoryForm">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"  formControlName="name" class="form-control input-default" placeholder="Enter Language Name">
+            </div>
+            <div class="form-group">
+              <label>Choose File</label>
+              <input type="file"  formControlName="categoryIcon" (change)="onFileSelected($event)" class="form-control input-default form-control-file">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addCategory()">Add</button>
+  </div>
+</ng-template>
+
+<ng-template #template2>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Update Category</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="basic-form">
+          <form [formGroup]="editCategoryForm">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"  formControlName="name" class="form-control input-default" placeholder="Enter Category Name">
+            </div>
+            <div class="form-group">
+              <label>Choose File</label>
+              <input type="file"  formControlName="categoryIcon" (change)="onFileSelected($event)" class="form-control input-default form-control-file">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="updateCategory()">Save</button>
+  </div>
+</ng-template>
+
+
+
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade static-modal"  id="addCategoryModal">-->
+<!--  <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title">Add Category</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <div class="row">-->
+<!--          <div class="col-lg-12">-->
+<!--            <div class="basic-form">-->
+<!--              <form [formGroup]="addCategoryForm">-->
+<!--                <div class="form-group">-->
+<!--                  <label>Name</label>-->
+<!--                  <input type="text"  formControlName="name" class="form-control input-default" placeholder="Enter Category Name">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                  <label>Choose File</label>-->
+<!--                  <input type="file"  formControlName="categoryIcon" (change)="onFileSelected($event)" class="form-control input-default form-control-file">-->
+<!--                </div>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--        <button type="button" class="btn btn-primary" (click)="addCategory()">Add</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

@@ -5,8 +5,12 @@ import { AdminComponent } from './admin/admin.component';
 const routes: Routes = [
   {
     path : '',
-    component: AdminComponent
+    loadChildren: './auth/auth.module#AuthModule'
   },
+  {
+    path : 'admin',
+    loadChildren: './admin/admin.module#AdminModule'
+  }
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@ $(document).ready(function() {
 		image: {
 			tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
 			titleSrc: function(item) {
-				return item.el.attr('title') + '<small>by QuixLab</small>';
+				return item.el.attr('title') + '<small>by MBSConnect</small>';
 			}
 		}
 	});
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		image: {
 			verticalFit: true
 		}
-		
+
 	});
 
 	$('.image-popup-fit-width').magnificPopup({
@@ -96,14 +96,14 @@ $(document).ready(function() {
 		focus: '#username',
 		modal: true
 	});
-	
+
 	$(document).on('click', '.popup-modal-dismiss', function (e) {
 		e.preventDefault();
 		$.magnificPopup.close();
 	});
 
 
-	$('.popup-link').magnificPopup({ 
+	$('.popup-link').magnificPopup({
 		removalDelay: 300,
 		type: 'image',
 		callbacks: {
