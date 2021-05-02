@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="custom-card">
+      <div class="custom-card-body">
+        <h5 class="custom-card-title">OFFER PRICE
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-sm btn-primary backdrop-static" title="Add Offer" style="float: right;" (click)="openModal(addOffer)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        </h5>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-dark" *ngIf="offerPriceData.length == 0">No language(s) available</div>
+
+<div class="row" *ngIf="offerPriceData.length > 0">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="active-member">
+          <div class="table-responsive">
+            <table class="table table-xs mb-0">
+              <thead>
+              <tr>
+                <th>II</th>
+                <th>Price</th>
+                <th>Extra</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let offer of offerPriceData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+                <td>{{offer.id}}</td>
+                <td>{{offer.price}}</td>
+                <td>
+                  <span>{{offer.extra}}</span>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-xs btn-secondary" title="Edit" (click)="openModal(editOffer);editOfferData(offer)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                  <span class="midle"></span>
+                  <button type="button" class="btn btn-xs btn-danger" title="Delete" (click)="deleteOffer(offer)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls *ngIf="offerPriceData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+
+
+<ng-template #addOffer>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Offer</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="basic-form">
+          <form [formGroup]="addOfferForm">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="text"  formControlName="price" class="form-control input-default" placeholder="Enter Price">
+            </div>
+            <div class="form-group">
+              <label>Extra Price</label>
+              <input type="text"  formControlName="extra" class="form-control input-default" placeholder="Enter Extra Price">
+            </div>
+            <div class="form-group">
+              <label>Text to be display</label>
+              <input type="text"  formControlName="text_to_be_displayed" class="form-control input-default" placeholder="Enter text to be displayed">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addOfferData()" [disabled]="!addOfferForm.valid" [ngClass]="addOfferForm.valid? '' : 'btn-disabled'">Add</button>
+  </div>
+</ng-template>
+
+<ng-template #editOffer>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Update Language</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="basic-form">
+          <form [formGroup]="editOfferForm">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="text"  formControlName="price" class="form-control input-default" placeholder="Enter Price">
+            </div>
+            <div class="form-group">
+              <label>Extra Price</label>
+              <input type="text"  formControlName="extra" class="form-control input-default" placeholder="Extra Price">
+            </div>
+            <div class="form-group">
+              <label>Text to be display</label>
+              <input type="text"  formControlName="text_to_be_displayed" class="form-control input-default" placeholder="Enter text to be displayed">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="updateOffer()" [disabled]="!editOfferForm.valid" [ngClass]="editOfferForm.valid? '' : 'btn-disabled'">Update</button>
+  </div>
+</ng-template>

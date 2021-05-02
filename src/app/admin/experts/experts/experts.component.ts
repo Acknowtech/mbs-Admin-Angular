@@ -23,9 +23,14 @@ export class ExpertsComponent implements OnInit {
 
   exampleData = [];
   options = {};
-  value1 = [];
 
-  itemsPerPage = 5;
+  categoryDataForExpert =  [];
+  addExpertsForm: FormGroup = new FormGroup({
+    category_id: new FormControl('', Validators.required),
+    name: new FormControl(''),
+  });
+
+  itemsPerPage = 50;
   currentPage = 1;
 
   constructor(private commonService: CommonService,
@@ -33,6 +38,7 @@ export class ExpertsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getExperts();
+    this.getCategory();
     this.exampleData = [
       {id: 'basic1', text: 'Basic 1'},
       {id: 'basic2', disabled: true, text: 'Basic 2'},
@@ -40,24 +46,22 @@ export class ExpertsComponent implements OnInit {
       {id: 'basic4', text: 'Basic 4'}
     ];
     this.options = {
-      width: '500',
+      width: '450',
       multiple: false,
     };
   }
 
   getExperts(): void {
     this.commonService.apiCall('get', '/api/system/getExpertList?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
-      console.log('data-', data);
       if (data['success'] == true){
         this.expertsData =  [];
         this.expertsData = data['data']['data'];
-        console.log('expertsData-', this.expertsData);
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
-      this.commonService.flashMessage('error', 'Error', err['message']);
+      this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });
   }
 
@@ -72,6 +76,7 @@ export class ExpertsComponent implements OnInit {
   closeModal(){
     this.modalRef.hide();
     this.actionData = null;
+    this.addExpertsForm.reset();
   }
 
   expertAction(expert){
@@ -80,12 +85,59 @@ export class ExpertsComponent implements OnInit {
 
   expertAllowRejectAction(action){
 
-    console.log('===', this.actionData);
-    console.log('===', action);
+    var sendOBJ = {
+      is_verified: this.actionData['is_verified']
+    }
+
+    this.commonService.apiCall('post', '/api/metadata/verifyExpert/' + this.actionData.id, sendOBJ).subscribe((data) =>{
+      if (data['success'] == true){
+        this.closeModal();
+        this.commonService.flashMessage('success', 'Success', data['message']);
+      }else if (data['success'] == false){
+        this.closeModal();
+        this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.closeModal();
+      this.commonService.flashMessage('error', 'Error', err['error']['message']);
+    });
   }
 
   expertDetails(expert){
     this.expertDetailsData = expert;
 
+  }
+
+
+  getCategory(): void {
+    this.commonService.apiCall('get', '/api/system/getCategory?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+      if (data['success'] == true){
+        this.categoryDataForExpert =  [];
+        for (var i = 0; i < data['data']['data'].length; i++){
+          this.categoryDataForExpert.push({id: data['data']['data'][i]['id'], text: data['data']['data'][i]['name']})
+        }
+        this.commonService.flashMessage('success', 'Success', data['message']);
+      }else if (data['success'] == false){
+        this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.commonService.flashMessage('error', 'Error', err['message']);
+    });
+  }
+
+  addExpert(){
+    this.commonService.apiCall('post', '/api/metadata/createExpertise', this.addExpertsForm.value).subscribe((data) =>{
+      if (data['success'] == true){
+        this.closeModal();
+        this.getExperts();
+        this.commonService.flashMessage('success', 'Success', data['message']);
+      }else if (data['success'] == false){
+        this.closeModal();
+        this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.closeModal();
+      this.commonService.flashMessage('error', 'Error', err['error']['message']);
+    });
   }
 }

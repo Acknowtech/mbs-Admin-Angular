@@ -4,16 +4,11 @@
       <div class="custom-card-body">
         <h5 class="custom-card-title">EXPERTS
           <!-- Button trigger modal -->
-<!--          <button type="button" class="btn btn-sm btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i></button>-->
+          <button type="button" class="btn btn-sm btn-primary" title="Add Experts" style="float: right;"  (click)="openModal(addExperts)"><i class="fa fa-plus" aria-hidden="true"></i></button>
         </h5>
 
       </div>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-12">
-    <ng-select2 [data]="exampleData" [options]="options" [(ngModel)]="value1"></ng-select2>
   </div>
 </div>
 
@@ -61,6 +56,37 @@
 </div>
 <pagination-controls *ngIf="expertsData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
 
+
+<ng-template #addExperts>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Experts</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="basic-form">
+          <form [formGroup]="addExpertsForm">
+            <div class="form-group">
+              <label>Select Category</label>
+              <ng-select2 [data]="categoryDataForExpert" [options]="options" placeholder="Please select category" formControlName="category_id" class="form-control input-default"></ng-select2>
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"  formControlName="name" class="form-control input-default" placeholder="Enter Expert Name">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="addExpert()">Add</button>
+  </div>
+</ng-template>
 
 <ng-template #template>
   <div class="modal-header">

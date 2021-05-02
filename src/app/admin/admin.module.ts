@@ -20,11 +20,16 @@ import { TrashCityComponent } from './city/trash-city/trash-city.component';
 import { ExpertsComponent } from './experts/experts/experts.component';
 import { CustomerReviewComponent } from './customer-review/customer-review/customer-review.component';
 import { LiveSessionsComponent } from './live-sessions/live-sessions/live-sessions.component';
+import { OfferPriceComponent } from './offers/offer-price/offer-price.component';
+import { AdminUserComponent } from './users/admin-user/admin-user.component';
+import { CustomerComponent } from './users/customer/customer.component';
+import { RolesComponent } from './roles-permissions/roles/roles.component';
+import { PermissionsComponent } from './roles-permissions/permissions/permissions.component';
 
 
 
 @NgModule({
-  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent],
+  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
