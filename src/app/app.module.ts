@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guard/auth.guard';
 import { Ng2IziToastModule } from 'ng2-izitoast';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { Ng2IziToastModule } from 'ng2-izitoast';
       useClass : TokenInterceptorService,
       multi: true
     },
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     HttpClient,
     HttpClientModule,
     AuthGuard

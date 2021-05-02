@@ -25,11 +25,12 @@ import { AdminUserComponent } from './users/admin-user/admin-user.component';
 import { CustomerComponent } from './users/customer/customer.component';
 import { RolesComponent } from './roles-permissions/roles/roles.component';
 import { PermissionsComponent } from './roles-permissions/permissions/permissions.component';
+import { ReferrlsComponent } from './referrals/referrls/referrls.component';
 
 
 
 @NgModule({
-  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent],
+  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent, ReferrlsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

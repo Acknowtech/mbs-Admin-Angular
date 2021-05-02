@@ -16,14 +16,30 @@ export class AdminUserComponent implements OnInit {
   };
   adminUsersData =  [];
 
-  itemsPerPage = 5;
+  adminDetailsData = null;
+
+  assignRole: FormGroup = new FormGroup({
+    role: new FormControl('', Validators.required),
+  });
+  rolesData = [];
+  rolesOptionList = [];
+
+  options = {};
+
+  itemsPerPage = 50;
   currentPage = 1;
+
 
   constructor(private commonService: CommonService,
               private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getAdminUsers();
+    this.getRoles();
+    this.options = {
+      width: '450',
+      multiple: false,
+    };
   }
 
   getAdminUsers(): void {
@@ -51,6 +67,47 @@ export class AdminUserComponent implements OnInit {
 
   closeModal(){
     this.modalRef.hide();
+  }
+
+  getRoles(): void {
+    this.commonService.apiCall('get', '/api/metadata/getRoles').subscribe((data) =>{
+      if (data['success'] == true){
+        this.rolesData =  [];
+        this.rolesData = data['data']['data'];
+        // this.commonService.flashMessage('success', 'Success', data['message']);
+        for(var i = 0; i < this.rolesData.length; i++){
+          this.rolesData[i]['checked'] = false;
+          this.rolesOptionList.push({id: data['data']['data'][i]['id'], text: data['data']['data'][i]['name']})
+        }
+      }else if (data['success'] == false){
+        // this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.commonService.flashMessage('error', 'Error', err['message']);
+    });
+  }
+
+  adminDetails(expert){
+    this.adminDetailsData = expert;
+  }
+
+  assignRoleToAdmin(){
+    var sendOBJ = {
+      "role_id": this.assignRole.value.role,
+      "user_id": this.adminDetailsData.id,
+    }
+    this.commonService.apiCall('post', '/api/metadata/assignRole', sendOBJ).subscribe((data) =>{
+      if (data['success'] == true){
+        this.closeModal();
+        this.commonService.flashMessage('success', 'Success', data['message']);
+      }else if (data['success'] == false){
+        this.closeModal();
+        this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.closeModal();
+      this.commonService.flashMessage('error', 'Error', err['error']['message']);
+    });
   }
 
 }

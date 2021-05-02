@@ -10,6 +10,11 @@ export class AdminComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    if(!localStorage.getItem('isReloaded')){
+      localStorage.setItem('isReloaded','reloaded');
+      window.location.reload();
+    }
     console.log('in admin component---');
   }
 

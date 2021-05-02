@@ -17,6 +17,7 @@ import { AdminUserComponent } from './users/admin-user/admin-user.component';
 import { CustomerComponent } from './users/customer/customer.component';
 import { RolesComponent } from './roles-permissions/roles/roles.component';
 import { PermissionsComponent } from './roles-permissions/permissions/permissions.component';
+import { ReferrlsComponent } from './referrals/referrls/referrls.component';
 
 
 const routes: Routes = [
@@ -102,6 +103,11 @@ const routes: Routes = [
       {
         path : 'permissions',
         component : PermissionsComponent,
+        pathMatch : 'full'
+      },
+      {
+        path : 'referrals',
+        component : ReferrlsComponent,
         pathMatch : 'full'
       },
     ]

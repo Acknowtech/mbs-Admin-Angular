@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', data['data']['token']);
           localStorage.setItem('userData', JSON.stringify(data['data']['userData']));
           this.commonService.flashMessage('success', 'Success', data['message']);
-          this.commonService.navigateTo('admin');
+          localStorage.removeItem('isReloaded');
+          this.commonService.navigateTo('/admin');
         }
       }, error => {
         this.commonService.flashMessage('error', 'Error', error['error'].message);

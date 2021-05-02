@@ -27,6 +27,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile Number</th>
+                <th></th>
               </tr>
               </thead>
               <tbody>
@@ -35,6 +36,7 @@
                 <td>{{cust.name}}</td>
                 <td>{{cust.email}}</td>
                 <td>{{cust.mobile_number}}</td>
+                <td><button type="button" class="btn btn-xs btn-secondary" title="Assign Role" (click)="openModal(assignUserRole);customerDetails(cust)"><i class="fa fa-random" aria-hidden="true"></i></button>
               </tr>
               </tbody>
             </table>
@@ -45,3 +47,31 @@
   </div>
 </div>
 <pagination-controls *ngIf="customerData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+
+
+<ng-template #assignUserRole>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Assign Role to {{customerDetailsData.name}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="basic-form">
+          <form [formGroup]="assignRole">
+            <div class="form-group">
+              <label>Select Role</label>
+              <ng-select2 [data]="rolesOptionList" [options]="options" placeholder="Please select role" formControlName="role" class="form-control input-default"></ng-select2>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="assignRoleToCustomer()" [disabled]="!assignRole.valid" [ngClass]="assignRole.valid? '' : 'btn-disabled'">Assign Role</button>
+  </div>
+</ng-template>

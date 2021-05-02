@@ -30,8 +30,15 @@ export class ExpertsComponent implements OnInit {
     name: new FormControl(''),
   });
 
+  assignRole: FormGroup = new FormGroup({
+    role: new FormControl('', Validators.required),
+  });
+
   itemsPerPage = 50;
   currentPage = 1;
+
+  rolesData = [];
+  rolesOptionList = [];
 
   constructor(private commonService: CommonService,
               private modalService: BsModalService) { }
@@ -39,12 +46,7 @@ export class ExpertsComponent implements OnInit {
   ngOnInit(): void {
     this.getExperts();
     this.getCategory();
-    this.exampleData = [
-      {id: 'basic1', text: 'Basic 1'},
-      {id: 'basic2', disabled: true, text: 'Basic 2'},
-      {id: 'basic3', text: 'Basic 3'},
-      {id: 'basic4', text: 'Basic 4'}
-    ];
+    this.getRoles();
     this.options = {
       width: '450',
       multiple: false,
@@ -105,7 +107,6 @@ export class ExpertsComponent implements OnInit {
 
   expertDetails(expert){
     this.expertDetailsData = expert;
-
   }
 
 
@@ -130,6 +131,48 @@ export class ExpertsComponent implements OnInit {
       if (data['success'] == true){
         this.closeModal();
         this.getExperts();
+        this.commonService.flashMessage('success', 'Success', data['message']);
+      }else if (data['success'] == false){
+        this.closeModal();
+        this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.closeModal();
+      this.commonService.flashMessage('error', 'Error', err['error']['message']);
+    });
+  }
+
+
+  getRoles(): void {
+    this.commonService.apiCall('get', '/api/metadata/getRoles').subscribe((data) =>{
+      if (data['success'] == true){
+        this.rolesData =  [];
+        this.rolesData = data['data']['data'];
+        // this.commonService.flashMessage('success', 'Success', data['message']);
+        for(var i = 0; i < this.rolesData.length; i++){
+          this.rolesData[i]['checked'] = false;
+          this.rolesOptionList.push({id: data['data']['data'][i]['id'], text: data['data']['data'][i]['name']})
+        }
+      }else if (data['success'] == false){
+        // this.commonService.flashMessage('warning', 'Warning', data['message']);
+      }
+    }, err =>{
+      this.commonService.flashMessage('error', 'Error', err['message']);
+    });
+  }
+
+  selectedRole(permission, index){
+    this.rolesData[index]['checked'] = !this.rolesData[index]['checked'];
+  }
+
+  assignRoleToExpert(){
+    var sendOBJ = {
+      "role_id": this.assignRole.value.role,
+      "user_id": this.expertDetailsData.id,
+    }
+    this.commonService.apiCall('post', '/api/metadata/assignRole', sendOBJ).subscribe((data) =>{
+      if (data['success'] == true){
+        this.closeModal();
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.closeModal();
