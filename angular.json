@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/metismenujs/dist/metismenujs.css",
               "src/styles.css",
               "./node_modules/izitoast/dist/css/iziToast.min.css",
               "./node_modules/font-awesome/css/font-awesome.css",

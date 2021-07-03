@@ -11,6 +11,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AuthGuard } from './guard/auth.guard';
 import { Ng2IziToastModule } from 'ng2-izitoast';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {MetismenuAngularModule} from '@metismenu/angular';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     AdminModule,
     AuthModule,
     Ng2IziToastModule,
+    MetismenuAngularModule
   ],
   providers: [
     {

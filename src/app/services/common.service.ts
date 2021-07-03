@@ -15,7 +15,7 @@ export class CommonService {
   ) { }
 
   apiCall( type: string, url: string, body= {}, header = {} ) {
-    url = 'https://mbs.neuromonk.com' + url;
+    url = 'http://testapi.mbsconnect.in' + url;
     switch (type.toLowerCase()){
       case 'get': {
         return this.http.get(url, body);

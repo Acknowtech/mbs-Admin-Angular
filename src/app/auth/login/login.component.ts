@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
           this.commonService.navigateTo('/admin');
         }
       }, error => {
+      console.log(error)
         this.commonService.flashMessage('error', 'Error', error['error'].message);
     });
   }
