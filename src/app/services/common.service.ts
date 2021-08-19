@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Ng2IzitoastService} from 'ng2-izitoast';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CommonService {
   ) { }
 
   apiCall( type: string, url: string, body= {}, header = {} ) {
-    url = 'http://testapi.mbsconnect.in' + url;
+    url = environment.apiUrl + url;
     switch (type.toLowerCase()){
       case 'get': {
         return this.http.get(url, body);
