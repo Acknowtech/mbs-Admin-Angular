@@ -39,7 +39,9 @@ export class LanguageComponent implements OnInit {
     this.getLanguage();
   }
   getLanguage(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getLanguage?pageNo=' + '0' + '&limit=' + this.itemsPerPage).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.languageData =  [];
         this.languageData = data['data']['data'];
@@ -48,6 +50,7 @@ export class LanguageComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
@@ -82,8 +85,11 @@ export class LanguageComponent implements OnInit {
         name : this.addLanguageForm.value.name,
         languageIcon : this.selectedFile,
       }
+      this.commonService.loader(true);
       this.commonService.apiCall('post', '/api/metadata/createLanguage', formData).subscribe((data) => {
+        this.commonService.loader(false);
         if (data['success'] == true){
+
           this.selectedFile = null;
           this.modalRef.hide();
           this.addLanguageForm.reset();
@@ -93,6 +99,7 @@ export class LanguageComponent implements OnInit {
           this.commonService.flashMessage('warning', 'Warning', data['message']);
         }
       }, err => {
+        this.commonService.loader(false);
         this.commonService.flashMessage('error', 'Error', err['message']);
       });
 
@@ -116,8 +123,9 @@ export class LanguageComponent implements OnInit {
       formData.append('languageIcon', this.selectedFile);
       console.log('data', this.editLanguageForm.value);
       console.log('formData', formData);
-
+      this.commonService.loader(true);
       this.commonService.apiCall('post', '/api/metadata/updateLanguage', formData).subscribe((data) => {
+        this.commonService.loader(false);
         if (data['success'] == true){
           this.selectedFile = null;
           this.editLanguageId = null;
@@ -129,6 +137,7 @@ export class LanguageComponent implements OnInit {
           this.commonService.flashMessage('warning', 'Warning', data['message']);
         }
       }, err => {
+        this.commonService.loader(false);
         this.commonService.flashMessage('error', 'Error', err['message']);
       });
 
@@ -138,7 +147,9 @@ export class LanguageComponent implements OnInit {
   }
 
   deleteLanguage(lagData){
+    this.commonService.loader(true);
     this.commonService.apiCall('delete', '/api/metadata/deleteLanguage/' + lagData.id).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.commonService.flashMessage('success', 'Success', data['message']);
         this.getLanguage();
@@ -146,6 +157,7 @@ export class LanguageComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }

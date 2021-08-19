@@ -19,7 +19,9 @@ export class TrashCategoryComponent implements OnInit {
   }
 
   getTrashCategories(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/metadata/getTrashedCategory?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+      this.commonService.loader(false);
       console.log('data-', data);
       if (data['success'] == true){
         this.trashCategories =  [];
@@ -30,6 +32,7 @@ export class TrashCategoryComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }

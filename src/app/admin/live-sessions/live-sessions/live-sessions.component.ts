@@ -19,7 +19,9 @@ export class LiveSessionsComponent implements OnInit {
   }
 
   getLiveSession(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getLiveSessionAdmin?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.liveSessionData =  [];
         this.liveSessionData = data['data']['data'];
@@ -28,6 +30,7 @@ export class LiveSessionsComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });
   }

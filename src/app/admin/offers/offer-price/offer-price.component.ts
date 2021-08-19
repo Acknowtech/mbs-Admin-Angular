@@ -42,7 +42,9 @@ export class OfferPriceComponent implements OnInit {
   }
 
   getOffers(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getOfferPrice').subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.offerPriceData =  [];
         this.offerPriceData = data['data']['data'];
@@ -51,6 +53,7 @@ export class OfferPriceComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });
   }
@@ -68,8 +71,9 @@ export class OfferPriceComponent implements OnInit {
   }
 
   addOfferData(){
-
+    this.commonService.loader(true);
     this.commonService.apiCall('post', '/api/metadata/createOfferPrice', this.addOfferForm.value).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.closeModal();
         this.commonService.flashMessage('success', 'Success', data['message']);
@@ -80,6 +84,7 @@ export class OfferPriceComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });
   }
@@ -93,7 +98,9 @@ export class OfferPriceComponent implements OnInit {
     });
   }
   deleteOffer(data){
+    this.commonService.loader(true);
     this.commonService.apiCall('delete', '/api/metadata/deleteOfferPrice/'+ data.id).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.commonService.flashMessage('success', 'Success', data['message']);
         this.getOffers();
@@ -102,6 +109,7 @@ export class OfferPriceComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });
   }

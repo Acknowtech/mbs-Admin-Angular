@@ -42,7 +42,9 @@ export class CustomerComponent implements OnInit {
   }
 
   getCustomers(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getCustomerList').subscribe((data) =>{
+      this.commonService.loader(false);
       console.log('data-', data);
       if (data['success'] == true){
         this.customerData =  [];
@@ -52,6 +54,7 @@ export class CustomerComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
@@ -69,7 +72,9 @@ export class CustomerComponent implements OnInit {
   }
 
   getRoles(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/metadata/getRoles').subscribe((data) =>{
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.rolesData =  [];
         this.rolesData = data['data']['data'];
@@ -82,6 +87,7 @@ export class CustomerComponent implements OnInit {
         // this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
@@ -95,7 +101,9 @@ export class CustomerComponent implements OnInit {
       "role_id": this.assignRole.value.role,
       "user_id": this.customerDetailsData.id,
     }
+    this.commonService.loader(true);
     this.commonService.apiCall('post', '/api/metadata/assignRole', sendOBJ).subscribe((data) =>{
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.closeModal();
         this.assignRole.reset();
@@ -106,6 +114,7 @@ export class CustomerComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.closeModal();
       this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });

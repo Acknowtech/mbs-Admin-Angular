@@ -37,7 +37,9 @@ export class CityComponent implements OnInit {
   }
 
   getCity(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getCity?pageNo=' + '0' + '&limit=' + this.itemsPerPage).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.cityData =  [];
         this.cityData = data['data']['data'];
@@ -46,6 +48,7 @@ export class CityComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
@@ -70,7 +73,9 @@ export class CityComponent implements OnInit {
       const sendOBJ = {
         name : this.addCityForm.value.name,
       }
+      this.commonService.loader(true);
       this.commonService.apiCall('post', '/api/metadata/createCity', formData).subscribe((data) => {
+        this.commonService.loader(false);
         if (data['success'] == true){
           this.modalRef.hide();
           this.addCityForm.reset();
@@ -80,6 +85,7 @@ export class CityComponent implements OnInit {
           this.commonService.flashMessage('warning', 'Warning', data['message']);
         }
       }, err => {
+        this.commonService.loader(false);
         this.commonService.flashMessage('error', 'Error', err['message']);
       });
 
@@ -102,8 +108,9 @@ export class CityComponent implements OnInit {
       formData.append('name', this.editCityForm.value.name);
       console.log('data', this.editCityForm.value);
       console.log('formData', formData);
-
+      this.commonService.loader(true);
       this.commonService.apiCall('post', '/api/metadata/updateCity', formData).subscribe((data) => {
+        this.commonService.loader(false);
         if (data['success'] == true){
           this.editCityId = null;
           this.editCityForm.reset();
@@ -114,6 +121,7 @@ export class CityComponent implements OnInit {
           this.commonService.flashMessage('warning', 'Warning', data['message']);
         }
       }, err => {
+        this.commonService.loader(false);
         this.commonService.flashMessage('error', 'Error', err['message']);
       });
 
@@ -123,7 +131,9 @@ export class CityComponent implements OnInit {
   }
 
   deleteCity(cityData){
+    this.commonService.loader(true);
     this.commonService.apiCall('delete', '/api/metadata/deleteCity/' + cityData.id).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.commonService.flashMessage('success', 'Success', data['message']);
         this.getCity();
@@ -131,6 +141,7 @@ export class CityComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }

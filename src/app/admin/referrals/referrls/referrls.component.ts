@@ -38,7 +38,9 @@ export class ReferrlsComponent implements OnInit {
   }
 
   getReferrals(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getReferralSetting').subscribe((data) =>{
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.referralData =  [];
         this.referralData = data['data'];
@@ -47,6 +49,7 @@ export class ReferrlsComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }

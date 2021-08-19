@@ -39,7 +39,9 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategory(): void {
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/system/getCategory?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+      this.commonService.loader(false);
       console.log('data-', data);
       if (data['success'] == true){
         this.categoryData =  [];
@@ -49,6 +51,7 @@ export class CategoryComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
@@ -76,8 +79,9 @@ export class CategoryComponent implements OnInit {
       const formData = new FormData();
       formData.append('categoryIcon', this.selectedFile);
       formData.append('name', this.addCategoryForm.value.name);
-
+      this.commonService.loader(true);
       this.commonService.apiCall('post', '/api/metadata/createCategory', formData).subscribe((data) => {
+        this.commonService.loader(false);
         if (data['success'] == true){
           this.selectedFile = null;
           this.addCategoryForm.reset();
@@ -88,6 +92,7 @@ export class CategoryComponent implements OnInit {
           this.commonService.flashMessage('warning', 'Warning', data['message']);
         }
       }, err => {
+        this.commonService.loader(false);
         this.commonService.flashMessage('error', 'Error', err['message']);
       });
 
@@ -112,8 +117,9 @@ export class CategoryComponent implements OnInit {
       formData.append('categoryIcon', this.selectedFile);
       console.log('data', this.editCategoryForm.value);
       console.log('formData', formData);
-
+      this.commonService.loader(true);
       this.commonService.apiCall('post', '/api/metadata/updateCategory', formData).subscribe((data) => {
+        this.commonService.loader(false);
         if (data['success'] == true){
           this.selectedFile = null;
           this.editCategoryId = null;
@@ -125,6 +131,7 @@ export class CategoryComponent implements OnInit {
           this.commonService.flashMessage('warning', 'Warning', data['message']);
         }
       }, err => {
+        this.commonService.loader(false);
         this.commonService.flashMessage('error', 'Error', err['message']);
       });
 
@@ -134,7 +141,9 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(lagData){
+    this.commonService.loader(true);
     this.commonService.apiCall('delete', '/api/metadata/deleteLanguage/' + lagData.id).subscribe((data) => {
+      this.commonService.loader(false);
       if (data['success'] == true){
         this.commonService.flashMessage('success', 'Success', data['message']);
         this.getCategory();
@@ -142,6 +151,7 @@ export class CategoryComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err => {
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
