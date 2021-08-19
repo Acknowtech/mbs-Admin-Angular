@@ -17,13 +17,15 @@ export class ExpertsComponent implements OnInit {
     backdrop: true,
     ignoreBackdropClick: true
   };
+
+  showFilters = false;
   expertsData =  [];
   expertDetailsData = null;
   actionData = null;
-
+  totalCount = 0;
   exampleData = [];
   options = {};
-
+  currentPage = 0;
   categoryDataForExpert =  [];
   addExpertsForm: FormGroup = new FormGroup({
     category_id: new FormControl('', Validators.required),
@@ -33,10 +35,9 @@ export class ExpertsComponent implements OnInit {
   assignRole: FormGroup = new FormGroup({
     role: new FormControl('', Validators.required),
   });
-
-  itemsPerPage = 50;
-  currentPage = 1;
-
+  filters = {};
+  filterQuery = '';
+  itemsPerPage = 20;
   rolesData = [];
   rolesOptionList = [];
 
@@ -53,11 +54,29 @@ export class ExpertsComponent implements OnInit {
     };
   }
 
+  clearFilters(){
+    this.filterQuery ='';
+    this.filters = {};
+    this.currentPage = 0;
+    this.getExperts();
+  }
+
+  applyFilters(){
+    this.currentPage = 0;
+    this.filterQuery = '';
+    if(this.filters.hasOwnProperty('status') && this.filters['status']!==''){
+      this.filterQuery= '&is_verified='+this.filters['status'];
+    }
+    this.getExperts();
+  }
+
   getExperts(): void {
-    this.commonService.apiCall('get', '/api/system/getExpertList?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+    this.expertsData =  [];
+    this.commonService.apiCall('get', '/api/metadata/getExpertForAdmin?pageNo='+this.currentPage+'&limit=' + this.itemsPerPage+this.filterQuery).subscribe((data) =>{
       if (data['success'] == true){
-        this.expertsData =  [];
+
         this.expertsData = data['data']['data'];
+        this.totalCount=data['data']['count'];
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
@@ -68,7 +87,8 @@ export class ExpertsComponent implements OnInit {
   }
 
   pageChange(event){
-    this.currentPage = event;
+    this.currentPage = event.page-1;
+    this.getExperts();
   }
 
   openModal(template: TemplateRef<any>) {

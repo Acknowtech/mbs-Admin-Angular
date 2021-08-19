@@ -1,16 +1,39 @@
-<div class="row">
-  <div class="col-lg-12">
-    <div class="custom-card">
-      <div class="custom-card-body">
-        <h5 class="custom-card-title">EXPERTS
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-sm btn-primary" title="Add Experts" style="float: right;"  (click)="openModal(addExperts)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-        </h5>
 
-      </div>
+    <div class="card">
+      <div class="card-body">
+        <div class=" d-flex justify-content-between">
+          <div>
+            <h5 class="card-title">EXPERTS  </h5>
+          </div>
+          <div>
+
+            <button class="btn btn-primary" (click)="showFilters=true">Filters</button>
+          </div>
+        </div>
+        <ng-container *ngIf="showFilters">
+            <div class="row" >
+              <div class="col-md-4">
+                <label>Expert Status</label>
+                <select id="status" name="status" class="form-control input-default" [(ngModel)]="filters['status']">
+                  <option value="" >All</option>
+                  <option value="new">New</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+
+            </div>
+            <div class="row d-flex justify-content-end">
+              <button class="btn btn-primary m-2" (click)="showFilters=false" >Hide</button>
+              <button class="btn btn-primary m-2" (click)="applyFilters()">Apply</button>
+              <button class="btn btn-primary m-2" (click)="clearFilters()">Clear Filter</button>
+            </div>
+          </ng-container>
+        </div>
+
+
     </div>
-  </div>
-</div>
+
 
 <div class="cbm10"></div>
 <div class="alert alert-dark" *ngIf="expertsData.length == 0">No experts available</div>
@@ -33,13 +56,24 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let expert of expertsData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+              <tr *ngFor="let expert of expertsData ">
+                <td>{{expert.name | titlecase}}
 
-                <td>{{expert.name}}</td>
-                <td>{{expert.email}}</td>
+                  <ng-container *ngIf="expert.is_verified">
+                    <span class="badge badge-success">Authorized</span>
+                  </ng-container>
+                  <ng-container *ngIf="expert.is_verified==false">
+                    <span class="badge badge-danger">Not Authorized</span>
+                  </ng-container>
+                  <ng-container *ngIf="expert.is_verified==null">
+                    <span class="badge badge-info">New Registration</span>
+                  </ng-container>
+
+                </td>
+                <td>{{expert.email |titlecase}}</td>
                 <td>{{expert.mobile_number}}</td>
-                <td>{{expert.marital_status}}</td>
-                <td>{{expert.city}}</td>
+                <td>{{expert.marital_status |titlecase}}</td>
+                <td>{{expert.city_id!=null?expert?.city?.name:expert.city}}</td>
                 <td>
                   <button type="button" class="btn btn-xs btn-info" title="Action" (click)="openModal(template);expertAction(expert)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                   <span class="midle"></span>
@@ -56,7 +90,7 @@
     </div>
   </div>
 </div>
-<pagination-controls *ngIf="expertsData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+<pagination [itemsPerPage]="itemsPerPage"  (pageChanged)="pageChange($event)" [totalItems]="totalCount"></pagination>
 
 
 <ng-template #addExperts>

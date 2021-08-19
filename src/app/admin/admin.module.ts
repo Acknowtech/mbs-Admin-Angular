@@ -26,21 +26,24 @@ import { CustomerComponent } from './users/customer/customer.component';
 import { RolesComponent } from './roles-permissions/roles/roles.component';
 import { PermissionsComponent } from './roles-permissions/permissions/permissions.component';
 import { ReferrlsComponent } from './referrals/referrls/referrls.component';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
+import { ExpertDetailsComponent } from './experts/expert-details/expert-details.component';
 
 
 
 @NgModule({
-  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent, ReferrlsComponent],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    NgxPaginationModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    ModalModule.forRoot(),
-    NgSelect2Module
-  ]
+  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent, ReferrlsComponent, ExpertDetailsComponent],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        NgxPaginationModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ModalModule.forRoot(),
+        NgSelect2Module,
+        PaginationModule
+    ]
 })
 export class AdminModule { }
