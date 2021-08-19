@@ -12,21 +12,25 @@ import { AuthGuard } from './guard/auth.guard';
 import { Ng2IziToastModule } from 'ng2-izitoast';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {MetismenuAngularModule} from '@metismenu/angular';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    AdminModule,
-    AuthModule,
-    Ng2IziToastModule,
-    MetismenuAngularModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        SharedModule,
+        AdminModule,
+        AuthModule,
+        Ng2IziToastModule,
+        MetismenuAngularModule,
+        NgxSpinnerModule,
+      BrowserAnimationsModule
+    ],
   providers: [
     {
       provide : HTTP_INTERCEPTORS,

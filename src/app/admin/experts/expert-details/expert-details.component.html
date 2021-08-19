@@ -1,1 +1,147 @@
-<p>expert-details works!</p>
+<div class="card">
+  <div class="card-title">
+
+  </div>
+  <div class="card-body">
+    <ng-container *ngIf="expertDetails!=null">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Default Tab</h4>
+              <!-- Nav tabs -->
+              <div class="default-tab">
+                <ul class="nav nav-tabs mb-3" role="tablist">
+                  <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#home">Profile</a>
+                  </li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">Call Log Details</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade active show" id="home" role="tabpanel">
+                    <div class="p-t-15">
+                      <div class="row">
+                        <div class="col-12 d-flex justify-content-between">
+                          <div>
+                            <ng-container *ngIf="expertDetails.is_verified">
+                              <h4 class="">User Status : <span class="bg-success p-1">Authorized</span></h4>
+                            </ng-container>
+                            <ng-container *ngIf="expertDetails.is_verified==false">
+                              <h4 class="">User Status : <span class="bg-danger p-1">Not Authorized</span></h4>
+                            </ng-container>
+                            <ng-container *ngIf="expertDetails.is_verified==null">
+                              <h4 class="">User Status : <span class="bg-info p-1">New Registration</span></h4>
+                            </ng-container>
+                          </div>
+                          <div>
+                          <button class="btn btn-primary" (click)="openModal(userChangeStatus)">Change Status</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-5">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table class="table table-bordered">
+                              <tbody>
+                              <tr>
+                                <td class="table-key-name">Expert Name</td>
+                                <td>{{expertDetails?.name}}</td>
+                                <td class="table-key-name" >Expert Mobile</td>
+                                <td>{{expertDetails?.mobile_number}}</td>
+                              </tr>
+                              <tr>
+                                <td class="table-key-name">Expert Email</td>
+                                <td>{{expertDetails?.email}}</td>
+                                <td class="table-key-name" >Expert City</td>
+                                <td>{{expertDetails.city_id!=null?expertDetails?.city_name?.name:expertDetails.city}}</td>
+                              </tr>
+                              <tr>
+                                <td class="table-key-name">Expert About</td>
+                                <td>{{expertDetails?.short_bio}}</td>
+                                <td class="table-key-name" >Expert Education</td>
+                                <td>{{expertDetails?.education}}</td>
+                              </tr>
+                              <tr>
+                                <td class="table-key-name">Expert Categories</td>
+                                <td>
+                                  <ng-container *ngFor="let category of expertDetails.category">{{category['name']+' ,' }}</ng-container>
+                                </td>
+                                <td class="table-key-name">Expert Level</td>
+                                <td>{{expertDetails?.level?.name}}</td>
+                              </tr>
+                              <tr>
+                                <td class="table-key-name">Expert Experience</td>
+                                <td>{{expertDetails?.experience}}</td>
+                                <td class="table-key-name" >Expert Experties</td>
+                                <td>{{expertDetails?.expertise}}</td>
+                              </tr>
+                              <tr>
+                                <td class="table-key-name">Profile Photo</td>
+                                <td><img style="max-width: 300px" [src]="expertDetails?.profile_link"></td>
+                                <td class="table-key-name" >Expert Certificates</td>
+                                <td>
+                                  <span *ngIf="expertDetails?.certificate1"><img style="max-width: 300px" [src]="expertDetails?.certificate1"><br></span>
+                                  <span *ngIf="expertDetails?.certificate2"><img style="max-width: 300px" [src]="expertDetails?.certificate2"><br></span>
+                                  <span *ngIf="expertDetails?.certificate3"><img style="max-width: 300px" [src]="expertDetails?.certificate3"><br></span>
+                                </td>
+                              </tr>
+
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade " id="profile">
+                    <div class="p-t-15">
+                      <h4>This is profile title</h4>
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade " id="contact">
+                    <div class="p-t-15">
+                      <h4>This is contact title</h4>
+                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
+                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="message">
+                    <div class="p-t-15">
+                      <h4>This is message title</h4>
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+
+<ng-template #userChangeStatus>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Expert Action</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <h4>Take action on expert.</h4>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="expertAllowRejectAction(1)">Allow</button>
+    <button type="button" class="btn btn-warning" (click)="expertAllowRejectAction(0)">Reject</button>
+  </div>
+</ng-template>

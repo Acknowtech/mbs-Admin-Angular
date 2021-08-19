@@ -67,12 +67,20 @@ export class ExpertsComponent implements OnInit {
     if(this.filters.hasOwnProperty('status') && this.filters['status']!==''){
       this.filterQuery= '&is_verified='+this.filters['status'];
     }
+    if(this.filters.hasOwnProperty('name') && this.filters['name']!==''){
+      this.filterQuery= '&name='+this.filters['name'];
+    }
+    if(this.filters.hasOwnProperty('mobile_no') && this.filters['mobile_no']!==''){
+      this.filterQuery= '&mobile_no='+this.filters['mobile_no'];
+    }
     this.getExperts();
   }
 
   getExperts(): void {
     this.expertsData =  [];
+    this.commonService.loader(true);
     this.commonService.apiCall('get', '/api/metadata/getExpertForAdmin?pageNo='+this.currentPage+'&limit=' + this.itemsPerPage+this.filterQuery).subscribe((data) =>{
+      this.commonService.loader(false);
       if (data['success'] == true){
 
         this.expertsData = data['data']['data'];
@@ -82,6 +90,7 @@ export class ExpertsComponent implements OnInit {
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }
     }, err =>{
+      this.commonService.loader(false);
       this.commonService.flashMessage('error', 'Error', err['error']['message']);
     });
   }

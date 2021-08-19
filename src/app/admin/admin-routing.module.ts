@@ -18,11 +18,17 @@ import { CustomerComponent } from './users/customer/customer.component';
 import { RolesComponent } from './roles-permissions/roles/roles.component';
 import { PermissionsComponent } from './roles-permissions/permissions/permissions.component';
 import { ReferrlsComponent } from './referrals/referrls/referrls.component';
+import {ExpertDetailsComponent} from './experts/expert-details/expert-details.component';
 
 
 const routes: Routes = [
   {
-    path : '',
+    path:'',
+    redirectTo:'admin',
+    pathMatch:'full'
+  },
+  {
+    path : 'admin',
     component : AdminComponent,
     children : [
       {
@@ -66,8 +72,13 @@ const routes: Routes = [
         pathMatch : 'full'
       },
       {
-        path : 'Experts',
+        path : 'experts',
         component : ExpertsComponent,
+        pathMatch : 'full'
+      },
+      {
+        path : 'experts-details/:id',
+        component : ExpertDetailsComponent,
         pathMatch : 'full'
       },
       {

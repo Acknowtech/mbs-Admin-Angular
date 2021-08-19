@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Ng2IzitoastService} from 'ng2-izitoast';
 import {environment} from '../../environments/environment';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class CommonService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private iziToast: Ng2IzitoastService
+    private iziToast: Ng2IzitoastService,
+    private spinner: NgxSpinnerService
   ) { }
 
   apiCall( type: string, url: string, body= {}, header = {} ) {
@@ -96,5 +98,13 @@ export class CommonService {
       return false;
     }
     return true;
+  }
+
+  loader(flag:boolean){
+    if(flag){
+      this.spinner.show();
+    }else{
+      this.spinner.hide();
+    }
   }
 }
