@@ -17,6 +17,7 @@ export class ExpertDetailsComponent implements OnInit {
     ignoreBackdropClick: true,
     class : "modal-lg"
   };
+  reason = '';
   expertDetails=null;
   constructor(private route: ActivatedRoute,
               private commonService: CommonService,
@@ -56,6 +57,11 @@ export class ExpertDetailsComponent implements OnInit {
     var sendOBJ = {
       is_verified: action
     }
+    if(this.reason==''){
+      this.commonService.flashMessage('error', 'Success', 'Please Enter Comment');
+      return;
+    }
+    sendOBJ['rejection_result']=this.reason;
     this.commonService.loader(true);
     this.commonService.apiCall('post', '/api/metadata/verifyExpert/' + this.expertDetails.id, sendOBJ).subscribe((data) =>{
       this.commonService.loader(false);
@@ -70,7 +76,7 @@ export class ExpertDetailsComponent implements OnInit {
     }, err =>{
       this.commonService.loader(false);
       this.closeModal();
-      this.commonService.flashMessage('error', 'Error', err['error']['message']);
+      this.commonService.flashMessage('error', 'Error', err['message']);
     });
   }
 

@@ -85,7 +85,7 @@ export class ExpertsComponent implements OnInit {
 
         this.expertsData = data['data']['data'];
         this.totalCount=data['data']['count'];
-        this.commonService.flashMessage('success', 'Success', data['message']);
+        // this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
       }

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl:"http://api.mbsconnect.in"
+  apiUrl:"https://api.mbsconnect.in"
 };

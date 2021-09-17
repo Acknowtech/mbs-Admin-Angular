@@ -114,7 +114,10 @@ export class CategoryComponent implements OnInit {
       const formData = new FormData();
       formData.append('category_id', this.editCategoryId);
       formData.append('name', this.editCategoryForm.value.name);
-      formData.append('categoryIcon', this.selectedFile);
+      if(this.selectedFile){
+        formData.append('categoryIcon', this.selectedFile);
+      }
+
       console.log('data', this.editCategoryForm.value);
       console.log('formData', formData);
       this.commonService.loader(true);

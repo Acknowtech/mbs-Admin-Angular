@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
   }
   userLogIn(): void {
     const sendOBJ = this.userLogin.value;
+    this.commonService.loader(true);
     this.commonService.apiCall('post', '/api/auth/adminLogin', sendOBJ).subscribe((data) => {
+      this.commonService.loader(false);
         if (data['success'] == true){
           localStorage.setItem('token', data['data']['token']);
           localStorage.setItem('userData', JSON.stringify(data['data']['userData']));
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
           this.commonService.navigateTo('/admin');
         }
       }, error => {
+      this.commonService.loader(false);
       console.log(error)
         this.commonService.flashMessage('error', 'Error', error['error'].message);
     });
