@@ -82,9 +82,12 @@ export class ExpertsComponent implements OnInit {
     this.commonService.apiCall('get', '/api/metadata/getExpertForAdmin?pageNo='+this.currentPage+'&limit=' + this.itemsPerPage+this.filterQuery).subscribe((data) =>{
       this.commonService.loader(false);
       if (data['success'] == true){
-
+        if(this.currentPage==0){
+          this.totalCount=data['data']['count'];
+        }
         this.expertsData = data['data']['data'];
-        this.totalCount=data['data']['count'];
+
+
         // this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);

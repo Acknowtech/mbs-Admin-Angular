@@ -26,9 +26,9 @@ export class CityComponent implements OnInit {
     name: new FormControl('', Validators.required),
   });
 
-  itemsPerPage = 5;
-  currentPage = 1;
-
+  itemsPerPage = 25;
+  currentPage = 0;
+  totalCount=0;
   constructor(private commonService: CommonService,
               private modalService: BsModalService) { }
 
@@ -38,10 +38,13 @@ export class CityComponent implements OnInit {
 
   getCity(): void {
     this.commonService.loader(true);
-    this.commonService.apiCall('get', '/api/system/getCity?pageNo=' + '0' + '&limit=' + this.itemsPerPage).subscribe((data) => {
+    this.commonService.apiCall('get', '/api/system/getCity?pageNo=' + this.currentPage + '&limit=' + this.itemsPerPage).subscribe((data) => {
       this.commonService.loader(false);
       if (data['success'] == true){
         this.cityData =  [];
+        if(this.currentPage==0){
+          this.totalCount =  data['data']['count']
+        }
         this.cityData = data['data']['data'];
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
@@ -53,7 +56,8 @@ export class CityComponent implements OnInit {
     });
   }
   pageChange(event){
-    this.currentPage = event;
+    this.currentPage = event.page-1;
+    this.getCity();
   }
 
   openModal(template: TemplateRef<any>) {

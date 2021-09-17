@@ -29,7 +29,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let category of categoryData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+              <tr *ngFor="let category of categoryData">
                 <td><img src="{{category.imageLink}}" class=" rounded-circle mr-3" alt=""></td>
                 <td>{{category.name}}</td>
                 <td>
@@ -46,7 +46,8 @@
     </div>
   </div>
 </div>
-<pagination-controls *ngIf="categoryData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+<pagination [itemsPerPage]="itemsPerPage"  (pageChanged)="pageChange($event)" [totalItems]="totalCount"></pagination>
+
 
 
 <ng-template #template>

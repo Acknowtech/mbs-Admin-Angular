@@ -28,7 +28,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let city of cityData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+              <tr *ngFor="let city of cityData ">
                 <td>{{city.name}}</td>
                 <td>
                   <button type="button" class="btn btn-xs btn-secondary" title="Edit" (click)="openModal(template2);editLanguage(city)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -44,7 +44,7 @@
     </div>
   </div>
 </div>
-<pagination-controls *ngIf="cityData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+<pagination [itemsPerPage]="itemsPerPage"  (pageChanged)="pageChange($event)" [totalItems]="totalCount"></pagination>
 
 
 <ng-template #template>

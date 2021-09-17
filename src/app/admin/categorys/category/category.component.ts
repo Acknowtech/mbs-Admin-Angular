@@ -28,8 +28,9 @@ export class CategoryComponent implements OnInit {
     categoryIcon: new FormControl(''),
   });
 
-  itemsPerPage = 5;
-  currentPage = 1;
+  itemsPerPage = 25;
+  currentPage = 0;
+  totalCount = 0;
 
   constructor(private commonService: CommonService,
               private modalService: BsModalService) { }
@@ -40,12 +41,17 @@ export class CategoryComponent implements OnInit {
 
   getCategory(): void {
     this.commonService.loader(true);
-    this.commonService.apiCall('get', '/api/system/getCategory?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+    this.categoryData =  [];
+    this.commonService.apiCall('get', '/api/system/getCategory?pageNo='+this.currentPage+'&limit=' + this.itemsPerPage).subscribe((data) =>{
       this.commonService.loader(false);
       console.log('data-', data);
       if (data['success'] == true){
-        this.categoryData =  [];
+
         this.categoryData = data['data']['data'];
+        if(this.currentPage==0){
+          this.totalCount=data['data']['count'];
+        }
+
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
@@ -63,7 +69,10 @@ export class CategoryComponent implements OnInit {
   }
 
   pageChange(event){
-    this.currentPage = event;
+    console.log(event)
+    this.currentPage = event.page-1;
+    console.log(this.currentPage);
+    this.getCategory();
   }
 
   openModal(template: TemplateRef<any>) {

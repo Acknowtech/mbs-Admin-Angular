@@ -28,6 +28,7 @@ import { PermissionsComponent } from './roles-permissions/permissions/permission
 import { ReferrlsComponent } from './referrals/referrls/referrls.component';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { ExpertDetailsComponent } from './experts/expert-details/expert-details.component';
+import {MetismenuAngularModule} from '@metismenu/angular';
 
 
 
@@ -43,7 +44,8 @@ import { ExpertDetailsComponent } from './experts/expert-details/expert-details.
         HttpClientModule,
         ModalModule.forRoot(),
         NgSelect2Module,
-        PaginationModule
+        PaginationModule,
+        MetismenuAngularModule
     ]
 })
 export class AdminModule { }
