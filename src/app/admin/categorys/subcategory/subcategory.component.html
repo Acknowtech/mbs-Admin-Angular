@@ -2,9 +2,9 @@
   <div class="col-lg-12">
     <div class="custom-card">
       <div class="custom-card-body">
-        <h5 class="custom-card-title">CATEGORY
+        <h5 class="custom-card-title">Sub CATEGORY
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i> Create Main Category</button>
+          <button type="button" class="btn  btn-primary" title="Add Category" style="float: right;"  (click)="openModal(template)"><i class="fa fa-plus" aria-hidden="true"></i> Create Sub Category</button>
         </h5>
 
       </div>
@@ -12,9 +12,9 @@
   </div>
 </div>
 
-<div class="alert alert-dark" *ngIf="categoryData.length == 0">No category(s) available</div>
+<div class="alert alert-dark" *ngIf="subCategoryData.length == 0">No category(s) available</div>
 
-<div class="row" *ngIf="categoryData.length > 0">
+<div class="row" *ngIf="subCategoryData.length > 0">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
@@ -23,15 +23,15 @@
             <table class="table table-xs mb-0">
               <thead>
               <tr>
-                <th>Category Icon</th>
                 <th>Name</th>
+                <th>Parent Category</th>
                 <th>Actions</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let category of categoryData">
-                <td><img src="{{category.imageLink}}" class=" rounded-circle mr-3" alt=""></td>
+              <tr *ngFor="let category of subCategoryData">
                 <td>{{category.name}}</td>
+                <td>{{category?.category.name}}</td>
                 <td>
                   <button type="button" class="btn btn-xs btn-secondary" title="Edit" (click)="openModal(template2);editCategory(category)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                   <span class="midle"></span>
@@ -67,8 +67,12 @@
               <input type="text"  formControlName="name" class="form-control input-default" placeholder="Enter Language Name">
             </div>
             <div class="form-group">
-              <label>Choose File</label>
-              <input type="file"  formControlName="categoryIcon" (change)="onFileSelected($event)" class="form-control input-default form-control-file">
+              <label>Choose Category</label>
+              <select type="file"  formControlName="category_id"  class="form-control input-default form-control-file">
+                <ng-container *ngFor="let eachCategory of allCategories">
+                  <option value="{{eachCategory.id}}">{{eachCategory.name}}</option>
+                </ng-container>
+              </select>
             </div>
           </form>
         </div>
@@ -98,8 +102,12 @@
               <input type="text"  formControlName="name" class="form-control input-default" placeholder="Enter Category Name">
             </div>
             <div class="form-group">
-              <label>Choose File</label>
-              <input type="file"  formControlName="categoryIcon" (change)="onFileSelected($event)" class="form-control input-default form-control-file">
+              <label>Choose Category</label>
+              <select type="file"  formControlName="category_id"  class="form-control input-default form-control-file">
+                <ng-container *ngFor="let eachCategory of allCategories">
+                  <option value="{{eachCategory.id}}" >{{eachCategory.name}}</option>
+                </ng-container>
+              </select>
             </div>
           </form>
         </div>

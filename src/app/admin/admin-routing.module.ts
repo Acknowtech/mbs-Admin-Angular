@@ -19,6 +19,7 @@ import { RolesComponent } from './roles-permissions/roles/roles.component';
 import { PermissionsComponent } from './roles-permissions/permissions/permissions.component';
 import { ReferrlsComponent } from './referrals/referrls/referrls.component';
 import {ExpertDetailsComponent} from './experts/expert-details/expert-details.component';
+import {SubcategoryComponent} from './categorys/subcategory/subcategory.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,11 @@ const routes: Routes = [
       {
         path : 'category',
         component : CategoryComponent,
+        pathMatch : 'full'
+      },
+      {
+        path : 'sub-category',
+        component : SubcategoryComponent,
         pathMatch : 'full'
       },
       {
