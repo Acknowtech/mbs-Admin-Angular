@@ -39,6 +39,14 @@ export class CustomerReviewComponent implements OnInit {
     });
   }
 
+  counter(i:number){
+    let listTemp = [];
+    for(let j=0;j<i;j++){
+      listTemp.push(1)
+    }
+    return listTemp;
+  }
+
   pageChange(event){
     this.currentPage = event;
   }

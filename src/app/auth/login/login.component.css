@@ -1,0 +1,38 @@
+.login-img-dec[_ngcontent-gmd-c129] {
+  height: 100vh!important;
+  width: 100%;
+}
+
+.login-text{
+
+  font-family: Fira Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #333333;
+}
+
+.bg-blue-600{
+  background-color: hsl(221, 89%, 48%);
+}
+
+.card-body{
+
+}
+
+.login-header{
+  font-family: Fira Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+
+  color: #FFD991;
+}
+
+.p-inputtext{
+  width: 300px;
+}

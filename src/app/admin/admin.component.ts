@@ -8,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
 
   constructor() { }
-
+  loginUserData={};
   ngOnInit(): void {
-
     if(!localStorage.getItem('isReloaded')){
       localStorage.setItem('isReloaded','reloaded');
       window.location.reload();
     }
     console.log('in admin component---');
   }
+
 
 }

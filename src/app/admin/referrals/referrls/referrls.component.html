@@ -35,7 +35,8 @@
                 <td>{{referralData.minimum_amount}}</td>
                 <td>{{referralData.new_customer}}</td>
                 <td>{{referralData.existing_customer}}</td>
-                <td>{{referralData.is_active}}</td>
+                <td style="color: green;" *ngIf="referralData.is_active == 1">Active</td>
+                <td style="color: red;"  *ngIf="referralData.is_active == 0">Inactive</td>
                 <td>
                   <button type="button" class="btn btn-xs btn-secondary" title="Edit" (click)="openModal(editReferral);editReferralData(referralData)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 </td>
@@ -64,15 +65,15 @@
         <div class="basic-form">
           <form [formGroup]="editReferralDataForm">
             <div class="form-group">
-              <label>Name</label>
+              <label>Minimum Amount</label>
               <input type="number"  formControlName="minimum_amount" class="form-control input-default" placeholder="Enter minimum amount">
             </div>
             <div class="form-group">
-              <label>Name</label>
+              <label>New Customer</label>
               <input type="number"  formControlName="new_customer" class="form-control input-default" placeholder="Enter new customer">
             </div>
             <div class="form-group">
-              <label>Name</label>
+              <label>Existing Customer</label>
               <input type="number"  formControlName="existing_customer" class="form-control input-default" placeholder="Enter existing customer">
             </div>
           </form>

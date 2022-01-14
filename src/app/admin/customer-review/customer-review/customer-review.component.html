@@ -8,9 +8,9 @@
   </div>
 </div>
 
-<div class="alert alert-dark" *ngIf="reviewsData.length == 0">No reviews available</div>
+<div class="alert alert-dark" *ngIf="reviewsData?.length == 0">No reviews available</div>
 
-<div class="row" *ngIf="reviewsData.length > 0">
+<div class="row" *ngIf="reviewsData?.length > 0">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
@@ -31,7 +31,7 @@
                 <td>{{review.expert_id}}</td>
                 <td>{{review.customer_id}}</td>
                 <td>{{review.review}}</td>
-                <td>{{review.rating}}</td>
+                <td><i *ngFor="let star1 of counter(review.rating)" class="fa fa-star fa-2x"></i></td>
                 <td>
                   <button type="button" class="btn btn-xs btn-success" title="Accept" (click)="actionOnReview(review, 'accept')"><i class="fa fa-check" aria-hidden="true"></i></button>
                   <span class="midle"></span>
@@ -46,4 +46,4 @@
     </div>
   </div>
 </div>
-<pagination-controls *ngIf="reviewsData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+<pagination-controls *ngIf="reviewsData?.length > 0" (pageChange)="pageChange($event)"></pagination-controls>

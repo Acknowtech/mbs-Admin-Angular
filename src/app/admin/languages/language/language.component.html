@@ -23,19 +23,15 @@
             <table class="table table-xs mb-0">
               <thead>
               <tr>
-                <th>Customers</th>
-                <th>Product</th>
-                <th>Country</th>
-                <th></th>
+                <th>Language Icon</th>
+                <th>Name</th>
+                <th>Actions</th>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let language of languageData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-                <td><img src="{{language.imageLink}}" class=" rounded-circle mr-3" alt="">{{language.name}}</td>
+              <tr *ngFor="let language of languageData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+                <td><img src="{{language.imageLink}}" class=" rounded-circle mr-3" alt=""></td>
                 <td>{{language.name}}</td>
-                <td>
-                  <span>{{language.name}}</span>
-                </td>
                 <td>
                   <button type="button" class="btn btn-xs btn-secondary" title="Edit" (click)="openModal(template2);editLanguage(language)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                   <span class="midle"></span>

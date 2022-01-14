@@ -28,11 +28,13 @@ export class LoginComponent implements OnInit {
           this.commonService.flashMessage('success', 'Success', data['message']);
           localStorage.removeItem('isReloaded');
           this.commonService.navigateTo('/admin');
+        }else{
+          this.commonService.flashMessage('error','Error',data['message'])
         }
       }, error => {
       this.commonService.loader(false);
       console.log(error)
-        this.commonService.flashMessage('error', 'Error', error['error'].message);
+      this.commonService.flashMessage('error','Error',error.message)
     });
   }
 }

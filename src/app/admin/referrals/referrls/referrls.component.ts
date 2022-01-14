@@ -44,6 +44,7 @@ export class ReferrlsComponent implements OnInit {
       if (data['success'] == true){
         this.referralData =  [];
         this.referralData = data['data'];
+        console.log(this.referralData)
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
