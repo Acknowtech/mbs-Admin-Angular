@@ -29,7 +29,7 @@ export class LanguageComponent implements OnInit {
     languageIcon: new FormControl(''),
   });
 
-  itemsPerPage = 5;
+  itemsPerPage = 15;
   currentPage = 1;
 
   constructor(private commonService: CommonService,
@@ -43,6 +43,7 @@ export class LanguageComponent implements OnInit {
     this.commonService.apiCall('get', '/api/system/getLanguage?pageNo=' + '0' + '&limit=' + this.itemsPerPage).subscribe((data) => {
       this.commonService.loader(false);
       if (data['success'] == true){
+        console.log(data)
         this.languageData =  [];
         this.languageData = data['data']['data'];
         this.commonService.flashMessage('success', 'Success', data['message']);
