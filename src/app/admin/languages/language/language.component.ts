@@ -27,6 +27,7 @@ export class LanguageComponent implements OnInit {
   editLanguageForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     languageIcon: new FormControl(''),
+    subText: new FormControl('', Validators.required)
   });
 
   itemsPerPage = 5;
@@ -80,9 +81,10 @@ export class LanguageComponent implements OnInit {
       const formData = new FormData();
       formData.append('languageIcon', this.selectedFile);
       formData.append('name', this.addLanguageForm.value.name);
-
+      formData.append('subText', this.addLanguageForm.value.subText)
       const sendOBJ = {
         name : this.addLanguageForm.value.name,
+        subText: this.addLanguageForm.value.subText,
         languageIcon : this.selectedFile,
       }
       this.commonService.loader(true);
@@ -112,6 +114,7 @@ export class LanguageComponent implements OnInit {
     this.editLanguageId = langData.id;
     this.editLanguageForm.patchValue({
       name: langData.name,
+      subText: langData.subText,
       languageIcon: ''
     });
   }
