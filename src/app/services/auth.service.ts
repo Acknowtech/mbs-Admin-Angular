@@ -16,8 +16,10 @@ export class AuthService {
   }
 
   logout() {
-      localStorage.clear();
-      this.router.navigate(['/']);
+
+    localStorage.clear();
+    // @ts-ignore
+    // window.location.reload();
   }
 }
 
