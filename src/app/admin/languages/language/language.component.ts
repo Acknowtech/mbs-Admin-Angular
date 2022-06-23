@@ -30,7 +30,7 @@ export class LanguageComponent implements OnInit {
     subText: new FormControl('', Validators.required)
   });
 
-  itemsPerPage = 5;
+  itemsPerPage = 15;
   currentPage = 1;
 
   constructor(private commonService: CommonService,

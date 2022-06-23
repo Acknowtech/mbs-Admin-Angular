@@ -50,7 +50,7 @@
     </div>
   </div>
 </div>
-<pagination-controls *ngIf="languageData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+<pagination-controls *ngIf="languageData.length > 0" (pageChange)="currentPage = $event"></pagination-controls>
 
 
 <ng-template #template>
