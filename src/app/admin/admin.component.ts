@@ -18,4 +18,10 @@ export class AdminComponent implements OnInit {
     console.log('in admin component---');
   }
 
+  logout(){
+    console.log("logout")
+    localStorage.clear()
+    // this.userService.logout()
+  }
+
 }

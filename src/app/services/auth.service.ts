@@ -11,8 +11,17 @@ export class AuthService {
   getToken(): string{
     return localStorage.getItem('token');
   }
-  isLoggedIn(): boolean{
-    return !!localStorage.getItem('token');
+  isLoggedIn()
+  {
+    let token=localStorage.getItem("token");
+    if(token==undefined || token==='' ||  token==null)
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
   }
 
   logout() {

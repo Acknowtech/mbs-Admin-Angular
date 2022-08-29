@@ -20,13 +20,14 @@ import { PermissionsComponent } from './roles-permissions/permissions/permission
 import { ReferrlsComponent } from './referrals/referrls/referrls.component';
 import {ExpertDetailsComponent} from './experts/expert-details/expert-details.component';
 import {SubcategoryComponent} from './categorys/subcategory/subcategory.component';
+import { AuthGuard } from '../guard/auth.guard';
 
 
 const routes: Routes = [
   {
     path:'',
     redirectTo:'admin',
-    pathMatch:'full'
+    pathMatch:'full',
   },
   {
     path : 'admin',
@@ -35,97 +36,134 @@ const routes: Routes = [
       {
         path : '',
         component : DashboardComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
       },
       {
         path : 'metadata',
         component : MetadataComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'language',
         component : LanguageComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'trash-languages',
         component : TrashLanguagesComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'category',
         component : CategoryComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'sub-category',
         component : SubcategoryComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'trash-categories',
         component : TrashCategoryComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'city',
         component : CityComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'trash-city',
         component : TrashCityComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'experts',
         component : ExpertsComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'experts-details/:id',
         component : ExpertDetailsComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'customer-reviews',
         component : CustomerReviewComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'live-session',
         component : LiveSessionsComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'offers',
         component : OfferPriceComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'admin-user',
         component : AdminUserComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'customer',
         component : CustomerComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'roles',
         component : RolesComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'permissions',
         component : PermissionsComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
       {
         path : 'referrals',
         component : ReferrlsComponent,
-        pathMatch : 'full'
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
       },
     ]
   },
