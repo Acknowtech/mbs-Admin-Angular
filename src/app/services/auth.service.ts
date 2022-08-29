@@ -24,6 +24,19 @@ export class AuthService {
     }
   }
 
+  isLoggedOut()
+  {
+    let token=localStorage.getItem("token");
+    if(token==undefined || token==='' ||  token==null)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
   logout() {
 
     localStorage.clear();

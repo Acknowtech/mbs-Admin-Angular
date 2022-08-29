@@ -7,7 +7,7 @@ import { LoginGuard } from './guard/login.guard';
 const routes: Routes = [
   {
     path : '',
-    loadChildren: './auth/auth.module#AuthModule', canActivate:[LoginGuard]
+    loadChildren: './auth/auth.module#AuthModule',
   },
   {
     path : 'admin',
