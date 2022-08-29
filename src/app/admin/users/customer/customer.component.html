@@ -27,6 +27,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile Number</th>
+                <th>Available Balance</th>
                 <th>Created Date</th>
                 <th></th>
               </tr>
@@ -37,6 +38,8 @@
                 <td>{{cust.name}}</td>
                 <td>{{cust.email}}</td>
                 <td>{{cust.mobile_number}}</td>
+                <td *ngIf="cust?.wallet == null">NA</td>
+                <td *ngIf="cust?.wallet != null">{{cust?.wallet}} <i class="fa fa-inr"></i></td>
                 <td>{{cust?.created_at | date}}</td>
                 <td><button type="button" class="btn btn-xs btn-secondary" title="Assign Role" (click)="openModal(assignUserRole);customerDetails(cust)"><i class="fa fa-random" aria-hidden="true"></i></button>
               </tr>

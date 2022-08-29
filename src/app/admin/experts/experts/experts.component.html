@@ -60,6 +60,7 @@
                 <th>Mobile Number</th>
                 <th>Marital Status</th>
                 <th>City</th>
+                <th>Available Balance</th>
                 <th></th>
               </tr>
               </thead>
@@ -82,6 +83,8 @@
                 <td>{{expert.mobile_number}}</td>
                 <td>{{expert.marital_status |titlecase}}</td>
                 <td>{{expert.city_id!=null?expert?.city_name?.name:expert.city}}</td>
+                <td *ngIf="expert?.wallet != null">{{expert?.wallet}} <i class="fa fa-inr"></i></td>
+                <td *ngIf="expert?.wallet == null">NA</td>
                 <td>
                   <a type="button" class="btn btn-xs btn-primary" title="More Details" [routerLink]="['/admin','experts-details',expert.id]"><i class="fa fa-eye" aria-hidden="true"></i> Details</a>
                   <span class="midle"></span>
