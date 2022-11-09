@@ -26,10 +26,10 @@
                 <th>Action</th>
               </tr>
               </thead>
-              <tbody>
-              <tr *ngFor="let review of reviewsData | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
-                <td>{{review.expert_id}}</td>
-                <td>{{review.customer_id}}</td>
+              <tbody >
+              <tr *ngFor="let review of reviewsData ">
+                <td>{{review?.expert?.name}}</td>
+                <td>{{review?.customer?.name}}</td>
                 <td>{{review.review}}</td>
                 <td>{{review.rating}}</td>
                 <td>
@@ -46,4 +46,5 @@
     </div>
   </div>
 </div>
-<pagination-controls *ngIf="reviewsData.length > 0" (pageChange)="pageChange($event)"></pagination-controls>
+<pagination [itemsPerPage]="itemsPerPage"  (pageChanged)="pageChange($event)" [totalItems]="totalItems"></pagination>
+

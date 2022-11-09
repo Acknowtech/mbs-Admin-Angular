@@ -15,8 +15,9 @@ export class CustomerReviewComponent implements OnInit {
     ignoreBackdropClick: true
   };
   reviewsData =  [];
-  itemsPerPage = 5;
+  itemsPerPage = 15;
   currentPage = 1;
+  totalItems=0;
 
   constructor(private commonService: CommonService,
               private modalService: BsModalService) { }
@@ -26,10 +27,11 @@ export class CustomerReviewComponent implements OnInit {
   }
 
   getReviews(): void {
-    this.commonService.apiCall('get', '/api/system/getCustomerReview?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
+    this.commonService.apiCall('get', '/api/system/getCustomerReviewForAdmin?pageNo=0&limit=' + this.itemsPerPage).subscribe((data) =>{
       if (data['success'] == true){
         this.reviewsData =  [];
         this.reviewsData = data['data']['data'];
+        this.totalItems=data['data']['count'];
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
@@ -40,20 +42,23 @@ export class CustomerReviewComponent implements OnInit {
   }
 
   pageChange(event){
-    this.currentPage = event;
+    this.currentPage = event.page-1;
+    this.getReviews();
+
   }
 
   actionOnReview(review, type){
     console.log({review, type})
     const sendOBJ = {
       customer_review_id : review.id,
-      is_verified : review.is_verified
+      is_verified : type=='accept'?1:0
     }
 
     this.commonService.apiCall('post', '/api/metadata/updateCustomerReview', sendOBJ).subscribe((data) =>{
       if (data['success'] == true){
-        this.reviewsData =  [];
-        this.reviewsData = data['data']['data'];
+        // this.reviewsData =  [];
+        // this.reviewsData = data['data']['data'];
+        this.getReviews();
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);

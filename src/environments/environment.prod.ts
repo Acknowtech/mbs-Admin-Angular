@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl:"https://api.mbsconnect.in"
+  apiUrl:"https://api.lyffix.com"
 };

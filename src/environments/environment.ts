@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:"https://api.mbsconnect.in",
+  apiUrl:"https://api.lyffix.com",
   // apiUrl: "https://c1bea6b24f53.ngrok.io"
 };
 
