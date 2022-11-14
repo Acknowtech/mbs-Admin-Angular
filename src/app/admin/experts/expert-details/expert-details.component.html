@@ -16,6 +16,8 @@
                   </li>
                   <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">Call Log Details</a>
                   </li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#contact">Money Withdraw/Transfer</a>
+                  </li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane fade active show" id="home" role="tabpanel">
@@ -95,16 +97,77 @@
                   </div>
                   <div class="tab-pane fade " id="profile">
                     <div class="p-t-15">
-                      <h4>This is profile title</h4>
-                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
-                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
+                      <div class="alert alert-dark" *ngIf="walletLogData.length == 0">No logs available</div>
+
+                      <div class="row" *ngIf="walletLogData.length > 0">
+                        <div class="col-lg-12">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="active-member">
+                                <div class="table-responsive">
+                                  <table class="table table-xs mb-0">
+                                    <thead>
+                                    <tr>
+                                      <th>Description</th>
+                                      <th>Amount</th>
+                                      <th>Type</th>
+                                      <th>Balance</th>
+                                      <th>Duration</th>
+                                      <th>Transaction Type</th>
+<!--                                      <th>Action</th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    <tr *ngFor="let log of walletLogData ">
+
+                                      <td>{{log?.description}}</td>
+                                      <td style="color:{{log.type=='Credit'?'green':'red'}}"> {{log.type=="Credit"?log.credit:log.debit}}</td>
+                                      <td>{{log?.type}}</td>
+                                      <td>{{log?.balance}}</td>
+                                      <td>{{log?.duration}}</td>
+                                      <td>{{log?.callType}}</td>
+                                    </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <pagination [itemsPerPage]="itemsWalletLogDataPerPage"  (pageChanged)="walletDataPageChange($event)" [totalItems]="totalWalletLogDataItems"></pagination>
                     </div>
                   </div>
                   <div class="tab-pane fade " id="contact">
                     <div class="p-t-15">
-                      <h4>This is contact title</h4>
-                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
-                      <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove.</p>
+                      <h4>Money Withdraw/Transfer To Expert</h4>
+                      <p>Enter Amount to transfer to expert</p>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <span>Wallet Balance</span>
+                              {{walletBalance}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-12">
+                                  <input class="form-control" [(ngModel)]="amountToTransfer" [min]="1" >
+                                </div>
+                                <div class="col-12">
+                                  <button *ngIf="walletBalance>0" (click)="withdraw()" class="btn btn-outline-primary my-2">
+                                    Withdraw Amount
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="tab-pane fade" id="message">

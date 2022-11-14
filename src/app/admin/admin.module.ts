@@ -30,11 +30,12 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
 import { ExpertDetailsComponent } from './experts/expert-details/expert-details.component';
 import {MetismenuAngularModule} from '@metismenu/angular';
 import { SubcategoryComponent } from './categorys/subcategory/subcategory.component';
+import { CarousalComponent } from './carousal/carousal.component';
 
 
 
 @NgModule({
-  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent, ReferrlsComponent, ExpertDetailsComponent, SubcategoryComponent],
+  declarations: [AdminComponent, LanguageComponent, CategoryComponent, MetadataComponent, DashboardComponent, TrashLanguagesComponent, TrashCategoryComponent, CityComponent, TrashCityComponent, ExpertsComponent, CustomerReviewComponent, LiveSessionsComponent, OfferPriceComponent, AdminUserComponent, CustomerComponent, RolesComponent, PermissionsComponent, ReferrlsComponent, ExpertDetailsComponent, SubcategoryComponent, CarousalComponent],
     imports: [
         CommonModule,
         AdminRoutingModule,

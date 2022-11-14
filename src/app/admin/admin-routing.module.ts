@@ -21,6 +21,7 @@ import { ReferrlsComponent } from './referrals/referrls/referrls.component';
 import {ExpertDetailsComponent} from './experts/expert-details/expert-details.component';
 import {SubcategoryComponent} from './categorys/subcategory/subcategory.component';
 import { AuthGuard } from '../guard/auth.guard';
+import {CarousalComponent} from './carousal/carousal.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,13 @@ const routes: Routes = [
     path : 'admin',
     component : AdminComponent,
     children : [
+      {
+        path : 'dashboard',
+        component : DashboardComponent,
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
+      },
       {
         path : '',
         component : DashboardComponent,
@@ -161,6 +169,13 @@ const routes: Routes = [
       {
         path : 'referrals',
         component : ReferrlsComponent,
+        pathMatch : 'full',
+        canActivate:[AuthGuard]
+
+      },
+      {
+        path : 'carousal',
+        component : CarousalComponent,
         pathMatch : 'full',
         canActivate:[AuthGuard]
 

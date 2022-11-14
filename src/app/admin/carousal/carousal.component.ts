@@ -1,13 +1,13 @@
-import {Component, OnInit, TemplateRef } from '@angular/core';
-import { CommonService } from '../../../services/common.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import { Component, OnInit } from '@angular/core';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {CommonService} from '../../services/common.service';
+
 @Component({
-  selector: 'app-customer-review',
-  templateUrl: './customer-review.component.html',
-  styleUrls: ['./customer-review.component.css']
+  selector: 'app-carousal',
+  templateUrl: './carousal.component.html',
+  styleUrls: ['./carousal.component.css']
 })
-export class CustomerReviewComponent implements OnInit {
+export class CarousalComponent implements OnInit {
 
   modalRef: BsModalRef;
   config = {
@@ -23,12 +23,12 @@ export class CustomerReviewComponent implements OnInit {
               private modalService: BsModalService) { }
 
   ngOnInit(): void {
-    this.getReviews();
+    this.getCarousal();
   }
 
-  getReviews(): void {
+  getCarousal(): void {
     this.commonService.loader(true);
-    this.commonService.apiCall('get', `/api/system/getCustomerReviewForAdmin?pageNo=${this.currentPage}&limit=` + this.itemsPerPage).subscribe((data) =>{
+    this.commonService.apiCall('get', `/api/system/getCarousal?pageNo=${this.currentPage}&limit=` + this.itemsPerPage).subscribe((data) =>{
       this.commonService.loader(false);
       if (data['success'] == true){
         this.reviewsData =  [];
@@ -46,7 +46,7 @@ export class CustomerReviewComponent implements OnInit {
 
   pageChange(event){
     this.currentPage = event.page-1;
-    this.getReviews();
+    this.getCarousal();
 
   }
 
@@ -61,7 +61,7 @@ export class CustomerReviewComponent implements OnInit {
       if (data['success'] == true){
         // this.reviewsData =  [];
         // this.reviewsData = data['data']['data'];
-        this.getReviews();
+        this.getCarousal();
         this.commonService.flashMessage('success', 'Success', data['message']);
       }else if (data['success'] == false){
         this.commonService.flashMessage('warning', 'Warning', data['message']);
@@ -72,4 +72,5 @@ export class CustomerReviewComponent implements OnInit {
     });
 
   }
+
 }
